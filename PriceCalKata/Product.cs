@@ -1,7 +1,7 @@
 namespace Price_Calculator_Kata;
 
 public class Product
-{
+{ 
     public string ProductName { get; set; }
     public int Upc { get; set; }
     public double Price { get; set; }

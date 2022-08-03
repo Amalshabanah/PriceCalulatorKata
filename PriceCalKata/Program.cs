@@ -5,7 +5,7 @@ using System;
 namespace Price_Calculator_Kata
 {
     public class program
-    {
+    { 
         public static void Main(string[] args)
         {
             Book product = new Book("The Little Prince", 12345, 20.25);
