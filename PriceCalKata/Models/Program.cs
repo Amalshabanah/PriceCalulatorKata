@@ -5,13 +5,14 @@ namespace PriceCalKata.Models
     {
         public static void Main(string[] args)
         {
-            Product product = new Product("The Little Prince", 12345, 20.25 );
+            Product product = new Product("The Little Prince", 789, 20.25 );
+            product.UpcDiscount= product.DiscountAfterCheckUpc(product.Upc , product.UpcWithDiscount);
             double []values = ReadFromConsole(); // values array contains [tax , discount]
             product.Tax = values[0]; 
             product.Discount = values[1]; 
-            double priceAfter = product.CalculateFinalPrice(product.Price , product.Tax , product.Discount); 
+            double priceAfter = product.CalculateFinalPrice(product.Price , product.Tax , product.Discount , product.UpcDiscount); 
             product.PrintInfo(product.ProductName , product.Upc , product.Price); 
-            product.PrintFinalPrice(product.Price , product.Tax , product.Discount);
+            product.PrintFinalPrice(product.Price , product.Tax , product.Discount , product.UpcDiscount);
         }
         public static double [] ReadFromConsole()
         {
@@ -33,9 +34,7 @@ namespace PriceCalKata.Models
             {
                 Console.WriteLine("Please Enter either 1 or 2.");
             }
-
             return new[] {tax , discount};
         }
     }
-
 }

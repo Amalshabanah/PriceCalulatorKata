@@ -7,6 +7,9 @@ public class Product : ProductServices
     public double Price { get; set; }
     public double Tax { get; set; }
     public double Discount { get; set; }
+    public int UpcWithDiscount { get; } = 12345;
+    public  double UpcDiscount { get; set; }
+
     public Product(string name , int upc , double price)
     {
         ProductName = name;
