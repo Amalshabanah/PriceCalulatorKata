@@ -19,10 +19,17 @@ public class ProductServices : IProductService
 
      public double CalculateFinalPrice(double price, double tax, double discount) =>
          price + CalcualteTaxAmount(price, tax) - CalculateDiscountAmount(price, discount);
-     
-     public void PrintFinalPrice(double price , double tax , double discount)
+    
+     public void  PrintFinalPrice(double price, double tax, double discount)
      {
-         Console.WriteLine($"Tax={tax}%, discount={discount}% , Tax amount = ${CalcualteTaxAmount(price , tax).ToString("0.00")} , Discount amount = ${CalculateDiscountAmount(price , discount).ToString("0.00")}"+
-         $" Price before = ${price}, price after = ${CalculateFinalPrice(price , tax ,discount).ToString("0.00")}");
+         if (discount == 0)
+         {
+             Console.WriteLine($"Price : ${CalculateFinalPrice(price, tax, discount)}");
+         }
+         else
+         {
+             Console.WriteLine($"Price : ${CalculateFinalPrice(price ,tax ,discount).ToString("0.00")} \n" +
+             $"${CalculateDiscountAmount(price ,discount).ToString("0.00")} was deduced.");
+         }
      }
 }
