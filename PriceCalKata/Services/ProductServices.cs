@@ -13,12 +13,13 @@ public class ProductServices : IProductService
         Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax , and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
     }
 
-     public double CalcualteTaxAmount(double price, double tax) => price * (tax / 100);
+     public double CalcualteTaxAmount(double price , double tax) => price * (tax / 100);
 
-     public double CalculateDiscountAmount(double price, double discount) => price * (discount / 100);
+     public double CalculateDiscountAmount(double price , double discount) => price * (discount / 100);
 
      public double CalculateFinalPrice(double price, double tax, double discount) =>
          price + CalcualteTaxAmount(price, tax) - CalculateDiscountAmount(price, discount);
+     
      public void PrintFinalPrice(double price , double tax , double discount)
      {
          Console.WriteLine($"Tax={tax}%, discount={discount}% , Tax amount = ${CalcualteTaxAmount(price , tax).ToString("0.00")} , Discount amount = ${CalculateDiscountAmount(price , discount).ToString("0.00")}"+

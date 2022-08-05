@@ -10,9 +10,9 @@ namespace PriceCalKata.Models
             product.Tax = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Please Specify The Discount");
             product.Discount= Convert.ToDouble(Console.ReadLine());
-            double priceAfterTax = product.CalculatePriceAfterTax(product.Price, product.Tax);
-            product.PrintInfo(product.ProductName, product.Upc, product.Price);
-           product.PrintFinalPrice(product.Price ,product.Tax ,product.Discount);
+            double priceAfterTax = product.CalculatePriceAfterTax(product.Price , product.Tax);
+            product.PrintInfo(product.ProductName , product.Upc , product.Price);
+           product.PrintFinalPrice(product.Price , product.Tax , product.Discount);
         }
     }
 
