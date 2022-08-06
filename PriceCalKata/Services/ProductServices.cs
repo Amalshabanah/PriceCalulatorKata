@@ -15,29 +15,33 @@ public class ProductServices : IProductService
 
     public double CalculatePriceAfterDiscount(double price , double upcDiscount) => Math.Round((double)(price - CalculateDiscountAmount(price, upcDiscount)) , 2);
     
-    public double CalculateFinalPrice(double price, double tax , double discount, double upcDiscount)
-    {
-        double priceAfterUpcDiscount = CalculatePriceAfterDiscount(price , upcDiscount);
-        double taxAmount = CalcualteTaxAmount(priceAfterUpcDiscount , tax);
-        double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount , discount);
-      return  Math.Round((double)(priceAfterUpcDiscount + taxAmount - discountAmount) , 2);
+    
+    public double CalculateFinalPrice(double price, double tax , double discount , double upcDiscount , double packaging , double transport)
+    { 
+        double priceAfterTax = CalculatePriceAfterTax(price, tax);
+        double discountAmount = CalculateDiscountAmount(price, upcDiscount) +
+                              CalculateDiscountAmount(price, discount);
+        double costAmount = CalculateCostAmount(price, packaging) + Math.Round((double) transport,2);
+        
+     return  Math.Round((double)(priceAfterTax - discountAmount + costAmount) , 2);
     }
 
-public void  PrintFinalPrice(double price , double tax , double discount , double upcDiscount)
+    public double CalculateCostAmount(double price, double amount) =>  Math.Round((double)price * (amount / 100),2);
+
+    public void  PrintFinalPrice(double price , double tax , double discount , double upcDiscount, double packaging , double transport)
      {
          if (discount == 0)
          {
-             Console.WriteLine($"Price : ${CalculateFinalPrice(price , tax , discount , upcDiscount)}");
+             Console.WriteLine($"Price : ${CalculateFinalPrice(price , tax , discount , upcDiscount , packaging ,transport)}");
          }
          else
          {
-             double priceAfterUpcDiscount = CalculatePriceAfterDiscount(price , upcDiscount);
-             Console.WriteLine($"Price : ${CalculateFinalPrice(price ,tax , discount  , upcDiscount).ToString("0.00")} \n" +
-             $"Dicount Amount :${(CalculateDiscountAmount(price , upcDiscount) + CalculateDiscountAmount(priceAfterUpcDiscount , discount )).ToString("0.00")}.");
+             Console.WriteLine($"Price : ${CalculateFinalPrice(price , tax , discount  , upcDiscount ,packaging ,transport).ToString("0.00")} \n" +
+                               $"Dicount Amount :${(CalculateDiscountAmount(price , upcDiscount) + CalculateDiscountAmount(price , discount )).ToString("0.00")}.");
          }
      }
      
-     public int DiscountAfterCheckUpc(int upc , int upcToCheck)
+     public int CalculateDiscountAfterCheckUpc(int upc , int upcToCheck)
      {
          if (upc == upcToCheck)
              return 7;
