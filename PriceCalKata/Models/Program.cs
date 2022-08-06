@@ -5,11 +5,11 @@ namespace PriceCalKata.Models
     {
         public static void Main(string[] args)
         {
-            Product product = new Product("The Little Prince", 789, 20.25 );
+            Product product = new Product("The Little Prince" , 12345 , 20.25 );
             product.UpcDiscount= product.DiscountAfterCheckUpc(product.Upc , product.UpcWithDiscount);
             double []values = ReadFromConsole(); // values array contains [tax , discount]
             product.Tax = values[0]; 
-            product.Discount = values[1]; 
+            product.Discount = values[1];
             double priceAfter = product.CalculateFinalPrice(product.Price , product.Tax , product.Discount , product.UpcDiscount); 
             product.PrintInfo(product.ProductName , product.Upc , product.Price); 
             product.PrintFinalPrice(product.Price , product.Tax , product.Discount , product.UpcDiscount);
@@ -18,7 +18,7 @@ namespace PriceCalKata.Models
         {
             Console.WriteLine("Please Specify The Tax");
             double tax = Convert.ToDouble(Console.ReadLine());
-            double discount =0;
+            double discount = 0;
             Console.WriteLine("Is There a discount? \n 1.Enter 1 if Yes!\n 2.Enter 2 if No!");
             int discountStatus= Convert.ToInt32(Console.ReadLine());
             if (discountStatus == 1)

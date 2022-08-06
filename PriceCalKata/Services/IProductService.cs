@@ -7,11 +7,12 @@ public interface IProductService
     
     public double CalcualteTaxAmount(double price , double tax);
 
-    public double CalculateDiscountAmount(double price , double discount , double upcDiscount);
+    public double CalculateDiscountAmount(double price , double discount);
+    public double CalculatePriceAfterDiscount(double price , double upcDiscount);
 
     public void PrintFinalPrice(double price , double tax , double discount , double upcDiscount);
 
-    public double CalculateFinalPrice(double price, double tax , double discount , double upcDiscount);
+    public double CalculateFinalPrice(double price , double tax , double discount , double upcDiscount);
     
-    public int DiscountAfterCheckUpc(int upc, int upcToCheck);
+    public int DiscountAfterCheckUpc(int upc , int upcToCheck);
 }
