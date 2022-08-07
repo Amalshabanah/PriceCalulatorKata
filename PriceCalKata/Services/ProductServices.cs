@@ -1,10 +1,11 @@
+using PriceCalKata.Models;
+using PriceCalKata.Repositories;
+
 namespace PriceCalKata.Services;
-public class ProductServices : IProductService
+
+public class ProductServices : IProductService , IProductRepository
 {
-    public double Tax { get; set; }
-    public string? ProductName { get; set; }
-    public double Price { get; set; }
-    public double Upc { get; set; }
+    
 
     public double CalculatePriceAfterTax(double price, double tax) =>
         price + price * (tax / 100);
@@ -18,4 +19,10 @@ public class ProductServices : IProductService
     {
         Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax , and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
     }
+
+     public void ReadProductData()
+     {
+         var product = new Product("The Little Prince", 12345, 20.25);
+         product.Tax = 20;
+     }
 }
