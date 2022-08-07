@@ -12,4 +12,8 @@ public class Product : ProductServices
         Upc = upc;
         Price = price;
     }
+    public Product()
+    {
+        
+    }
 }

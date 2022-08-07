@@ -1,5 +1,4 @@
-﻿using PriceCalKata.Services;
-using PriceCalKata.Repositories;
+﻿using PriceCalKata.Repositories;
 namespace PriceCalKata.Models
 {
     public class program
@@ -7,7 +6,8 @@ namespace PriceCalKata.Models
         public static void Main(string[] args)
         {
             var product = new Product("The Little Prince", 12345, 20.25);
-            product.ReadProductData();
+            product.Tax = product.ReadTax();
+            
             double priceAfterTax = product.CalculatePriceAfterTax(product.Price, product.Tax);
             
             product.PrintInfo(product.ProductName, product.Upc, product.Price);
