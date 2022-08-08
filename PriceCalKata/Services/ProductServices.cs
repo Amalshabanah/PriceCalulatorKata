@@ -1,7 +1,9 @@
+using PriceCalKata.Repositories;
 namespace PriceCalKata.Services;
 
-public class ProductServices : IProductService
+public class ProductServices : ProductRepository , IProductService 
 {
+
     public double CalculatePriceAfterTax(double price , double tax) => Math.Round((double)(price + price * (tax / 100)) , 2);
 
     public void PrintInfo(string? productName , double upc , double price)
@@ -9,6 +11,11 @@ public class ProductServices : IProductService
         Console.WriteLine($"Sample product : Book with name = {productName} , UPC = {upc}, price = ${price.ToString("0.00")}.");
     }
     
+     public void PrintTax(double price , double tax , double priceAfterTax)
+    {
+        Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax , and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
+    }
+     
     public double CalcualteTaxAmount(double price , double tax) => Math.Round((double)price * (tax / 100) , 2);
 
     public double CalculateDiscountAmount(double price , double discount) => Math.Round((double)price * (discount / 100), 2);
@@ -28,6 +35,8 @@ public void  PrintFinalPrice(double price , double tax , double discount , doubl
          if (discount == 0)
          {
              Console.WriteLine($"Price : ${CalculateFinalPrice(price , tax , discount , upcDiscount)}");
+             
+             Console.WriteLine($"Price : ${CalculateFinalPrice(price, tax, discount , upcDiscount)}");
          }
          else
          {
@@ -37,7 +46,7 @@ public void  PrintFinalPrice(double price , double tax , double discount , doubl
          }
      }
      
-     public int DiscountAfterCheckUpc(int upc , int upcToCheck)
+     public int CalculateDiscountAfterCheckUpc(int upc , int upcToCheck)
      {
          if (upc == upcToCheck)
              return 7;
