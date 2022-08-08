@@ -27,6 +27,7 @@ public class ProductServices : ProductRepository , IProductService
      {
          if (discount == 0)
          {
+             
              Console.WriteLine($"Price : ${CalculateFinalPrice(price, tax, discount , upcDiscount)}");
          }
          else
@@ -35,6 +36,7 @@ public class ProductServices : ProductRepository , IProductService
              $"Dicount Amount :${CalculateDiscountAmount(price ,discount , upcDiscount).ToString("0.00")}.");
          }
      }
+     
      
      public int DiscountAfterCheckUpc(int upc , int upcToCheck)
      {
