@@ -36,9 +36,7 @@ public class ProductServices : ProductRepository , IProductService
              $"Dicount Amount :${CalculateDiscountAmount(price ,discount , upcDiscount).ToString("0.00")}.");
          }
      }
-     
-     
-     public int DiscountAfterCheckUpc(int upc , int upcToCheck)
+     public int CalculateDiscountAfterCheckUpc(int upc , int upcToCheck)
      {
          if (upc == upcToCheck)
              return 7;
