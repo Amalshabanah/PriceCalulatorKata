@@ -1,7 +1,7 @@
 using PriceCalKata.Repositories;
 namespace PriceCalKata.Services;
 
-public class ProductServices : IProductService
+public class ProductServices : ProductRepository ,IProductService
 {
 
     public double CalculatePriceAfterTax(double price , double tax) => Math.Round((double)(price + price * (tax / 100)) , 2);

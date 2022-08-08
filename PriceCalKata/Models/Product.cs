@@ -1,6 +1,9 @@
 using System.Security.AccessControl;
+using System.Security.AccessControl;
+using PriceCalKata.Repositories;
 using PriceCalKata.Services;
 namespace PriceCalKata.Models;
+
 public class Product : ProductServices
 { 
     public double Tax { get; set; }
