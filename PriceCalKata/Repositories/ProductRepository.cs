@@ -6,7 +6,10 @@ public class ProductRepository :  IProductRepository
     {
      return 20;
     }
-    
+    public double ReadDiscount()
+    {
+        return 15;
+    }
         
     
 }
