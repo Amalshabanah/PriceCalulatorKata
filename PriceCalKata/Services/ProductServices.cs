@@ -1,7 +1,9 @@
+using PriceCalKata.Repositories;
 namespace PriceCalKata.Services;
 
 public class ProductServices : IProductService
 {
+
     public double CalculatePriceAfterTax(double price , double tax) => Math.Round((double)(price + price * (tax / 100)) , 2);
 
     public void PrintInfo(string? productName , double upc , double price)
@@ -32,6 +34,7 @@ public class ProductServices : IProductService
      {
          if (discount == 0)
          {
+             
              Console.WriteLine($"Price : ${CalculateFinalPrice(price , tax , discount , upcDiscount , packaging ,transport)}");
          }
          else
