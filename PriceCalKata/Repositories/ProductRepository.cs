@@ -8,8 +8,6 @@ public class ProductRepository :  IProductRepository
     }
     public double ReadDiscount()
     {
-        return 15;
+        return 0;
     }
-        
-    
 }

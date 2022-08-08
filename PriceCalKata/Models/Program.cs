@@ -9,5 +9,4 @@ public class program
         product.PrintInfo(product.ProductName, product.Upc, product.Price);
         product.PrintFinalPrice(product.Price, product.Tax, product.Discount);
     }
-
 }

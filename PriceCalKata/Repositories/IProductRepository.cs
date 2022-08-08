@@ -3,5 +3,4 @@ public interface IProductRepository
 { 
     public double ReadTax();
     public double ReadDiscount();
-    
 }
