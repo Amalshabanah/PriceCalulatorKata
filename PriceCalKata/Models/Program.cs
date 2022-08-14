@@ -5,8 +5,7 @@ namespace PriceCalKata.Models
     {
         public static void Main(string[] args)
         {
-            var product = new Product("The Little Prince", 12345, 20.25);
-            product.Tax = product.ReadTax();
+            var product =  ProductRepository.GetProductData();
             
             double priceAfterTax = product.CalculatePriceAfterTax(product.Price, product.Tax);
             
