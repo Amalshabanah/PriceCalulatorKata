@@ -5,9 +5,8 @@ namespace PriceCalKata.Models
     { 
         public static void Main(string[] args)
         {
-            Product product = null;
             ProductRepository productRepo = new ProductRepository();
-            product = productRepo.GetFirstProductData();
+            var product = productRepo.GetFirstProductData();
              
             double priceAfterTax = product.CalculatePriceAfterTax(product.Price , product.Tax);
             
