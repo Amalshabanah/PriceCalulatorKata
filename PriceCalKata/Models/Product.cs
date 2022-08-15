@@ -10,14 +10,17 @@ public class Product : ProductServices
     public int UpcWithDiscount { get; } = 12345;
     public  double UpcDiscount { get; set; }
 
-    public Product(string name , int upc , double price)
+    public Product(string name , int upc , double price , double tax , double discount )
     {
         ProductName = name;
         Upc = upc;
         Price = price;
+        Tax = tax;
+        Discount = discount;
     }
+    
     public Product()
     {
-        
+
     }
 }
