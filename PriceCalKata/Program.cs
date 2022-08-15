@@ -1,7 +1,7 @@
 ﻿using PriceCalKata.Repositories;
 using PriceCalKata.Services;
 
-namespace PriceCalKata.Models
+namespace PriceCalKata
 {
     public class program
     { 
@@ -9,13 +9,9 @@ namespace PriceCalKata.Models
         {
             var productRepo = new ProductRepository();
             var product = productRepo.GetFirstProductData();
-             
-            double priceAfterTax = product.CalculatePriceAfterTax(product.Price , product.Tax);
-            IPrintService productPrint = new Product(); 
-            
-            productPrint.PrintInfo(product.ProductName, product.Upc , product.Price);
-            productPrint.PrintTax(product.Price, product.Tax , priceAfterTax);
-            
+            IProductPrintService productPrint = new ProductPrintService();
+
+            productPrint.PrintPriceBeforeAndAfterTax(product);
         }
     }
 }

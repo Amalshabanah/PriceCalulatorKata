@@ -1,4 +1,5 @@
 using PriceCalKata.Models;
+
 namespace PriceCalKata.Repositories;
 public class ProductRepository : IProductRepository
 {
