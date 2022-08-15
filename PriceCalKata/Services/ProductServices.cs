@@ -12,6 +12,7 @@ public class ProductServices : ProductRepository , IProductService
     
      public void PrintTax(double price , double tax , double priceAfterTax)
     {
-        Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax , and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
+        Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax ," +
+                          $" and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
     }
 }
