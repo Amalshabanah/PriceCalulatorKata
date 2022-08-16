@@ -11,11 +11,7 @@ public class ProductDataPrint
     {
         return productRepo.GetFirstProductData();
     }
-
-    public ProductDataPrint()
-    {
-        
-    }
+    
 
     
 }
