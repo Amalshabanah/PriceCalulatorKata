@@ -1,4 +1,5 @@
-﻿using PriceCalKata.Services;
+﻿using PriceCalKata.Models;
+using PriceCalKata.Services;
 
 namespace PriceCalKata
 {
@@ -6,8 +7,8 @@ namespace PriceCalKata
     { 
         public static void Main(string[] args)
         {
-            var product = new ProductDataPrint().GetProductData();
             var productPrint = new ProductPrintService();
+            var product = new Product();
 
             productPrint.PrintTaxInfo(product);
         }
