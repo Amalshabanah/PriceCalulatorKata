@@ -1,6 +1,8 @@
+using PriceCalKata.Models;
+
 namespace PriceCalKata.Services;
 
-public class IProductDataPrint
+public interface IProductDataPrint 
 {
-    
+    public  Product GetProductData();
 }

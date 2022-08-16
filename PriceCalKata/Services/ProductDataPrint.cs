@@ -2,8 +2,7 @@ using PriceCalKata.Models;
 using PriceCalKata.Repositories;
 
 namespace PriceCalKata.Services;
-
-public class ProductDataPrint
+public class ProductDataPrint : IProductDataPrint
 {
     private IProductRepository productRepo = new ProductRepository();
 
@@ -11,7 +10,4 @@ public class ProductDataPrint
     {
         return productRepo.GetFirstProductData();
     }
-    
-
-    
 }
