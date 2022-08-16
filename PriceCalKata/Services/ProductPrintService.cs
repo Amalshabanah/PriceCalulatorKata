@@ -3,11 +3,16 @@ using PriceCalKata.Models;
 namespace PriceCalKata.Services;
 public class ProductPrintService :  IProductPrintService
 {
-    private IProductService productService = new ProductService();
-    
+    private IProductService _productService;
+
+    public ProductPrintService(IProductService productService)
+    {
+        _productService = productService;
+    }
+
     public void PrintTaxInfo(Product product)
     {
-        product = productService. CalculateAndPrintTaxInfo();
+        product = _productService.CalculateAndPrintTaxInfo();
         Console.WriteLine($"Sample product : Book with name = {product.ProductName} , UPC = {product.Upc},"+
                           $"price = ${product.Price.ToString("0.00")}.");
         Console.WriteLine($"Product price reported as ${product.Price.ToString("0.00")} before tax ," +
