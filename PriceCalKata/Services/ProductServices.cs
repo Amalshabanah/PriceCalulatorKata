@@ -1,10 +1,9 @@
 using PriceCalKata.Repositories;
 namespace PriceCalKata.Services;
-
 public class ProductServices : ProductRepository , IProductService 
 {
-
-    public double CalculatePriceAfterTax(double price , double tax) => Math.Round((double)(price + price * (tax / 100)) , 2);
+    public double CalculatePriceAfterTax(double price, double tax) => Math.Round(
+        price + price * (tax / 100) , 2);
 
     public void PrintInfo(string? productName , double upc , double price)
     {
@@ -13,39 +12,44 @@ public class ProductServices : ProductRepository , IProductService
     
      public void PrintTax(double price , double tax , double priceAfterTax)
     {
-        Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax , and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
-    }
-     
-    public double CalcualteTaxAmount(double price , double tax) => Math.Round((double)price * (tax / 100) , 2);
-
-    public double CalculateDiscountAmount(double price , double discount) => Math.Round((double)price * (discount / 100), 2);
-
-    public double CalculatePriceAfterDiscount(double price , double upcDiscount) => Math.Round((double)(price - CalculateDiscountAmount(price, upcDiscount)) , 2);
-    
-    public double CalculateFinalPrice(double price, double tax , double discount, double upcDiscount)
-    {
-        double priceAfterUpcDiscount = CalculatePriceAfterDiscount(price , upcDiscount);
-        double taxAmount = CalcualteTaxAmount(priceAfterUpcDiscount , tax);
-        double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount , discount);
-      return  Math.Round((double)(priceAfterUpcDiscount + taxAmount - discountAmount) , 2);
+        Console.WriteLine($"Product price reported as ${price.ToString("0.00")} before tax ," +
+                          $" and ${priceAfterTax.ToString("0.00")} after {tax}% tax.");
     }
 
-public void  PrintFinalPrice(double price , double tax , double discount , double upcDiscount)
+     public double CalcualteTaxAmount(double price , double tax) => Math.Round(price * (tax / 100),2);
+
+     public double CalculateDiscountAmount(double price, double discount)
      {
+          return Math.Round(price * (discount / 100), 2);
+     }
+
+     public double CalculateUpcDiscountAmount(double price, double discount, double upcDiscount)
+     {
+        return Math.Round(price * (upcDiscount / 100), 2);
+     }
+
+     public double CalculateFinalPrice(double price, double tax, double discount, double upcDiscount)
+     {
+         double priceAfterUpcDiscount = price - CalculateDiscountAmount(price, upcDiscount);
+         double taxAmount = CalcualteTaxAmount(priceAfterUpcDiscount, tax);
+         double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, discount);
+         return Math.Round((priceAfterUpcDiscount + taxAmount - discountAmount), 2);
+     }
+
+     public void PrintFinalPrice(double price , double tax , double discount , double upcDiscount)
+     {
+         double priceAfterUpcDiscount = price - CalculateDiscountAmount(price, upcDiscount);
+         double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, discount);
+         
          if (discount == 0)
-         {
-             Console.WriteLine($"Price : ${CalculateFinalPrice(price , tax , discount , upcDiscount)}");
-             
-             Console.WriteLine($"Price : ${CalculateFinalPrice(price, tax, discount , upcDiscount)}");
-         }
+         Console.WriteLine($"Price after = ${CalculateFinalPrice(price , tax ,discount , upcDiscount).ToString("0.00")}");
+
          else
          {
-             double priceAfterUpcDiscount = CalculatePriceAfterDiscount(price , upcDiscount);
-             Console.WriteLine($"Price : ${CalculateFinalPrice(price ,tax , discount  , upcDiscount).ToString("0.00")} \n" +
-             $"Dicount Amount :${(CalculateDiscountAmount(price , upcDiscount) + CalculateDiscountAmount(priceAfterUpcDiscount , discount )).ToString("0.00")}.");
+             Console.WriteLine($"Price after = ${CalculateFinalPrice(price , tax ,discount , upcDiscount).ToString("0.00")}"+
+                               $"\nAmount Deducted ${CalculateDiscountAmount(price , upcDiscount) + CalculateDiscountAmount(priceAfterUpcDiscount , discount)}");
          }
      }
-     
      public int CalculateDiscountAfterCheckUpc(int upc , int upcToCheck)
      {
          if (upc == upcToCheck)
