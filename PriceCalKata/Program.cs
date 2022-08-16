@@ -1,5 +1,4 @@
-﻿using PriceCalKata.Repositories;
-using PriceCalKata.Services;
+﻿using PriceCalKata.Services;
 
 namespace PriceCalKata
 {
@@ -7,11 +6,10 @@ namespace PriceCalKata
     { 
         public static void Main(string[] args)
         {
-            var productRepo = new ProductRepository();
-            var product = productRepo.GetFirstProductData();
-            IProductPrintService productPrint = new ProductPrintService();
+            var product = new ProductDataPrint().GetProductData();
+            var productPrint = new ProductPrintService();
 
-            productPrint.PrintPriceBeforeAndAfterTax(product);
+            productPrint.PrintTaxInfo(product);
         }
     }
 }
