@@ -15,5 +15,3 @@ public class ProductRepository : IProductRepository
       return _products.FirstOrDefault();
   }
 }
-
-
