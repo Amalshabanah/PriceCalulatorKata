@@ -6,7 +6,10 @@ namespace PriceCalKata
     { 
         public static void Main(string[] args)
         {
+            
+            //ToDp: Inject Repo and Print service here.
             var productService = new ProductService();
+            
             productService.CalculateAndPrintPriceInfo();
         }
     }
