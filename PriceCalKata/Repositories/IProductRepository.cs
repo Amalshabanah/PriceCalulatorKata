@@ -1,9 +1,7 @@
+using PriceCalKata.Models;
 namespace PriceCalKata.Repositories;
-public interface IProductRepository 
-{ 
-    public double ReadTax();
-    public double ReadDiscount();
-    public double ReadPackaging();
-    public double ReadTransport();
-   
+public interface IProductRepository
+{
+    public  Product GetFirstProductData();
+    public List<Product> CreateList();
 }
