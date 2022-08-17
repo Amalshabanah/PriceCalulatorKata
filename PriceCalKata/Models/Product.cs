@@ -2,7 +2,7 @@ using PriceCalKata.Repositories;
 using PriceCalKata.Services;
 
 namespace PriceCalKata.Models;
-public class Product : ProductService 
+public class Product 
 { 
     public double Tax { get; set; }
     
