@@ -8,7 +8,6 @@ namespace PriceCalKata
     { 
         public static void Main(string[] args)
         {
-            //ToDp: Inject Repo and Print service here.
             var productRepo = new ProductRepository();
             var productPrint = new ProductPrintService();
             var productService = new ProductService(productRepo , productPrint);
