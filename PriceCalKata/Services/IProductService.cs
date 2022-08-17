@@ -1,6 +1,7 @@
 namespace PriceCalKata.Services;
-public interface IProductService 
-{ 
-    public double CalculatePriceAfterTax(double price , double tax);
-   
+public interface IProductService
+{
+    public void CalculateAndPrintPriceInfo();
+
+    public double CalculatePriceAfterTax(double price, double tax);
 }

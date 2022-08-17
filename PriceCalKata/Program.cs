@@ -1,4 +1,6 @@
-﻿using PriceCalKata.Services;
+﻿using PriceCalKata.Models;
+using PriceCalKata.Repositories;
+using PriceCalKata.Services;
 
 namespace PriceCalKata
 {
@@ -6,10 +8,11 @@ namespace PriceCalKata
     { 
         public static void Main(string[] args)
         {
-            
             //ToDp: Inject Repo and Print service here.
-            var productService = new ProductService();
-            
+            var productRepo = new ProductRepository();
+            var productPrint = new ProductPrintService();
+            var productService = new ProductService(productRepo , productPrint);
+          
             productService.CalculateAndPrintPriceInfo();
         }
     }
