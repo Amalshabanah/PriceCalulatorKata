@@ -13,10 +13,6 @@ public class ProductService : IProductService
         _productPrint = productPrint;
     }
 
-    protected ProductService()
-    {
-    }
-
     public double CalculatePriceAfterTax(double price , double tax)
     {
        return Math.Round(price + price * (tax / 100) , 2);
