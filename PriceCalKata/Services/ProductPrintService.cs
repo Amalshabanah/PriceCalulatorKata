@@ -11,7 +11,7 @@ public class ProductPrintService :  IProductPrintService
                           $"price = ${product.Price.ToString("0.00")}.");
         //ToDo: Remove CalculatePriceAfterTax, put it's value instead -priceAfterTax-
         Console.WriteLine($"Product price reported as ${product.Price.ToString("0.00")} before tax ," +
-                          $" and ${priceAfterTax.ToString("0.00")} " +
+                          $" and ${priceAfterTax} " +
                           $"after {product.Tax}% tax.");
     }
 }
