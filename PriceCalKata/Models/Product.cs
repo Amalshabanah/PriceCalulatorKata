@@ -1,6 +1,3 @@
-using PriceCalKata.Repositories;
-using PriceCalKata.Services;
-
 namespace PriceCalKata.Models;
 public class Product 
 { 
