@@ -10,6 +10,5 @@ public class ProductPrintService :  IProductPrintService
 
         Console.WriteLine($"Price Before : ${product.Price.ToString("0.00")} ," +
                           $" Price After : ${priceAfterTax}");
-
     }
 }
