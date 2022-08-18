@@ -21,4 +21,9 @@ public class ProductPrintService :  IProductPrintService
         Console.WriteLine($"Price Before : ${product.Price.ToString("0.00")} ," +
                           $" Price After : ${finalPrice}");
     }
+
+    public void PrintDeductedAmount(double discountAmount)
+    {
+        Console.WriteLine($"${discountAmount} amount was deduced.\n");
+    }
 }

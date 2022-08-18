@@ -1,5 +1,4 @@
 namespace PriceCalKata.Services;
-
 public interface IProductService
 {
     double CalculateDiscountAmount(double price, double discount);

@@ -43,9 +43,25 @@ public class ProductService : IProductService
     
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
-        Product product = _productRepo.GetFirstProductData();
-        var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
+        var productWithDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 15);
+        var productWithoutDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 0);
+        Product[] products = { productWithDiscount , productWithoutDiscount };
         
-        _productPrint.PrintPriceInfo(product , finalPrice);
+        foreach (var product in products)
+        {
+            var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
+            var discountAmount = CalculateDiscountAmount(product.Price , product.Discount);
+
+            if (product.Discount == 0)
+            {
+                _productPrint.PrintPriceInfo(product , finalPrice);
+            }
+
+            else
+            {
+                _productPrint.PrintPriceInfo(product , finalPrice);
+                _productPrint.PrintDeductedAmount(discountAmount);
+            }
+        }
     }
 }
