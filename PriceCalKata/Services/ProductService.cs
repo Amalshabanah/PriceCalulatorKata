@@ -13,11 +13,16 @@ public class ProductService : IProductService
         _productPrint = productPrint;
     }
 
-    public double CalculatePriceAfterTaxAndDiscount(double price , double tax , double discount)
+    public double CalculatePriceAfterTax(double price , double tax)
     {
-       return price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount);
+        return price + CalculateTaxAmount(price, tax);
     }
-
+   
+    public double CalculateFinalPrice(double price , double tax , double discount)
+    {
+        return price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount);
+    }
+    
     public double CalculateDiscountAmount(double price, double discount)
     {
         return Math.Round(price * (discount / 100) , 2);
@@ -27,11 +32,11 @@ public class ProductService : IProductService
     {
         return Math.Round(price * (tax / 100) , 2);
     }
-
+    
     public void CalculateAndPrintPriceInfo()
     {
         Product product = _productRepo.GetFirstProductData();
-        var finalPrice = CalculatePriceAfterTaxAndDiscount(product.Price, product.Tax , product.Discount);
+        var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
         
         _productPrint.PrintPriceInfo(product , finalPrice);
     }

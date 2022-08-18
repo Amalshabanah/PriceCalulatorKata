@@ -3,9 +3,11 @@ public interface IProductService
 {
     public void CalculateAndPrintPriceInfo();
 
-    public double CalculatePriceAfterTaxAndDiscount(double price, double tax , double discount);
+    public double CalculatePriceAfterTax(double price, double tax);
 
     public double CalculateDiscountAmount(double price, double discount);
     
     public double CalculateTaxAmount(double price, double tax);
+
+    public double CalculateFinalPrice(double price, double tax, double discount);
 }
