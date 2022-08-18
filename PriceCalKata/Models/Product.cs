@@ -1,6 +1,6 @@
 namespace PriceCalKata.Models;
 public class Product 
-{ 
+{
     public double Tax { get; set; }
     
     public string ProductName { get; set; }
