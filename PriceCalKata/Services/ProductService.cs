@@ -43,7 +43,7 @@ public class ProductService : IProductService
     
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
-        IEnumerable<Product> products = _productRepo.GetAllProduct().Where(product => product.Upc == 12345 || product.Upc == 123);
+        var products = _productRepo.GetAllProduct().Where(product => product.Upc == 12345 || product.Upc == 123);
         foreach (var product in products)
         {
             var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
