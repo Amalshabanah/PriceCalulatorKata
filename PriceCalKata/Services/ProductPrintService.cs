@@ -10,7 +10,7 @@ public class ProductPrintService :  IProductPrintService
         
         Console.WriteLine($"Product price reported as ${product.Price.ToString("0.00")} before tax ," +
                           $" and ${priceAfterTax} " +
-                          $"after {product.Tax}% tax.\n");
+                          $"after {product.Tax}% tax.");
     }
     
     public void PrintPriceInfo(Product product , double finalPrice)
