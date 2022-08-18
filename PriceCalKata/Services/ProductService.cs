@@ -28,7 +28,20 @@ public class ProductService : IProductService
         return Math.Round(price * (tax / 100) , 2);
     }
     
-    public void CalculateAndPrintPriceInfo()
+    public double CalculatePriceAfterTax(double price , double tax)
+    {
+        return Math.Round(price + CalculateTaxAmount(price , tax) , 2);
+    }
+    
+    public void CalculateAndPrintPriceInfoAfterTax()
+    {
+        Product product = _productRepo.GetFirstProductData();
+        var priceAfterTax = CalculatePriceAfterTax(product.Price, product.Tax);
+        
+        _productPrint.PrintTaxInfo(product , priceAfterTax);
+    }
+    
+    public void CalculateAndPrintPriceInfoAfterDiscount()
     {
         Product product = _productRepo.GetFirstProductData();
         var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
