@@ -24,6 +24,6 @@ public class ProductPrintService :  IProductPrintService
 
     public void PrintDeductedAmount(double discountAmount)
     {
-        Console.WriteLine($"${discountAmount} amount was deduced.");
+        Console.WriteLine($"${discountAmount} amount was deduced.\n");
     }
 }

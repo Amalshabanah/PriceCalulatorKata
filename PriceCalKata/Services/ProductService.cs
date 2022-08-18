@@ -43,19 +43,22 @@ public class ProductService : IProductService
     
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
-        Product product = _productRepo.GetFirstProductData();
-        var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
-        var discountAmount = CalculateDiscountAmount(product.Price , product.Discount);
-
-        if (product.Discount == 0)
+        IEnumerable<Product> products = _productRepo.GetAllProduct().Where(product => product.Upc == 12345 || product.Upc == 123);
+        foreach (var product in products)
         {
-            _productPrint.PrintPriceInfo(product , finalPrice);
-        }
+            var finalPrice = CalculateFinalPrice(product.Price, product.Tax , product.Discount);
+            var discountAmount = CalculateDiscountAmount(product.Price , product.Discount);
 
-        else
-        {
-            _productPrint.PrintPriceInfo(product , finalPrice);
-            _productPrint.PrintDeductedAmount(discountAmount);
+            if (product.Discount == 0)
+            {
+                _productPrint.PrintPriceInfo(product , finalPrice);
+            }
+
+            else
+            {
+                _productPrint.PrintPriceInfo(product , finalPrice);
+                _productPrint.PrintDeductedAmount(discountAmount);
+            }
         }
     }
 }
