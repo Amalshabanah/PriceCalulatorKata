@@ -1,5 +1,4 @@
-﻿using PriceCalKata.Models;
-using PriceCalKata.Repositories;
+﻿using PriceCalKata.Repositories;
 using PriceCalKata.Services;
 
 namespace PriceCalKata
@@ -12,7 +11,7 @@ namespace PriceCalKata
             var productPrint = new ProductPrintService();
             var productService = new ProductService(productRepo , productPrint);
           
-            productService.CalculateAndPrintPriceInfo();
+            productService.CalculateAndPrintPriceInfoAfterDiscount();
         }
     }
 }

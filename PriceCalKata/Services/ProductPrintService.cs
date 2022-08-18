@@ -12,4 +12,13 @@ public class ProductPrintService :  IProductPrintService
                           $" and ${priceAfterTax} " +
                           $"after {product.Tax}% tax.");
     }
+    
+    public void PrintPriceInfo(Product product , double finalPrice)
+    {
+        Console.WriteLine($"Sample product : Book with name = {product.ProductName} , UPC = {product.Upc} , "+
+                          $"price = ${product.Price.ToString("0.00")}.");
+
+        Console.WriteLine($"Price Before : ${product.Price.ToString("0.00")} ," +
+                          $" Price After : ${finalPrice}");
+    }
 }
