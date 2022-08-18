@@ -5,7 +5,7 @@ public interface IProductService
 
     public double CalculatePriceAfterTaxAndDiscount(double price, double tax , double discount);
 
-    public double DiscountAmount(double price, double discount);
+    public double CalculateDiscountAmount(double price, double discount);
     
-    public double TaxAmount(double price, double tax);
+    public double CalculateTaxAmount(double price, double tax);
 }
