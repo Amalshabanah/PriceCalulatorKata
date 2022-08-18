@@ -15,15 +15,15 @@ public class ProductService : IProductService
 
     public double CalculatePriceAfterTaxAndDiscount(double price , double tax , double discount)
     {
-        return price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount);
+        return price + CalculateTaxAmount(price , tax) - CalculateDiscountAmount(price , discount);
     }
 
-    public double CalculateDiscountAmount(double price, double discount)
+    public double CalculateDiscountAmount(double price , double discount)
     {
         return Math.Round(price * (discount / 100) , 2);
     }
 
-    public double CalculateTaxAmount(double price, double tax)
+    public double CalculateTaxAmount(double price , double tax)
     {
         return Math.Round(price * (tax / 100) , 2);
     }
@@ -36,7 +36,7 @@ public class ProductService : IProductService
 
         if (product.Discount == 0)
         {
-            _productPrint.PrintPriceInfo(product, finalPrice);
+            _productPrint.PrintPriceInfo(product , finalPrice);
         }
 
         else
