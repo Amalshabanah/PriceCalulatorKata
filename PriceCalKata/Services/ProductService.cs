@@ -12,12 +12,7 @@ public class ProductService : IProductService
         _productRepo = productRepo;
         _productPrint = productPrint;
     }
-
-    public double CalculatePriceAfterTax(double price , double tax)
-    {
-        return price + CalculateTaxAmount(price, tax);
-    }
-   
+    
     public double CalculateFinalPrice(double price , double tax , double discount)
     {
         return price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount);
