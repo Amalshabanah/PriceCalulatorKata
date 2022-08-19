@@ -10,6 +10,7 @@ public class Product
     public double Upc { get; set; }
     
     public double Discount { get; set; }
+    
     public double UpcWithDiscount { get; } = 12345;
     
     public  double UpcDiscount { get; set; }
