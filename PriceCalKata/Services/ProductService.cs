@@ -51,7 +51,7 @@ public class ProductService : IProductService
     {
         var productWithUpcDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
         var productWithoutUpcDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc != product.UpcWithDiscount);
-        Product[] products = { productWithUpcDiscount , productWithoutUpcDiscount };
+        var products = new[] { productWithUpcDiscount , productWithoutUpcDiscount };
         
         foreach (var product in products)
         {
@@ -84,7 +84,7 @@ public class ProductService : IProductService
     {
         var productWithDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 15);
         var productWithoutDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 0);
-        Product[] products = { productWithDiscount , productWithoutDiscount };
+        var products = new[] { productWithDiscount , productWithoutDiscount };
         
         foreach (var product in products)
         {
