@@ -1,18 +1,17 @@
 namespace PriceCalKata.Services;
-public interface IProductService 
-{ 
-    public double CalculatePriceAfterTax(double price , double tax);
-    public double CalcualteTaxAmount(double price, double tax);
+public interface IProductService
+{
+    double CalculateDiscountAmount(double price, double discount);
 
-    public void PrintInfo(string? productName , double upc , double price);
+    double CalculateTaxAmount(double price, double tax);
+
+    double CalculatePriceAfterTax(double price, double tax);
+
+    void CalculateAndPrintPriceInfoAfterTax();
+
+    void CalculateAndPrintPriceInfoAfterDiscount();
     
-    public void PrintTax(double price , double tax , double priceAfterTax);
-    
-    public double CalculateDiscountAmount(double price, double discount);
+    double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck);
 
-    public double CalculateUpcDiscountAmount(double price, double discount ,double upcDiscount);
-
-    public int CalculateDiscountAfterCheckUpc(int upc, int upcToCheck);
-
-    public void PrintFinalPrice(double price, double tax, double discount, double upcDisount);
+    void CalculateAndPrintPriceAfterPrecedenceDiscount();
 }

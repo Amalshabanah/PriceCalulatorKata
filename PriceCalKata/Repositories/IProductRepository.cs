@@ -1,7 +1,9 @@
 using PriceCalKata.Models;
+
 namespace PriceCalKata.Repositories;
 public interface IProductRepository
-{
-    public  Product GetFirstProductData();
-    public List<Product> CreateList();
+{ 
+    Product GetFirstProductData();
+    
+    List<Product> GetAllProduct();
 }

@@ -8,9 +8,4 @@
         <LangVersion>preview</LangVersion>
     </PropertyGroup>
 
-    <ItemGroup>
-      <Compile Remove="Book.cs" />
-      <Compile Remove="Services\IProduct.cs" />
-    </ItemGroup>
-
 </Project>
