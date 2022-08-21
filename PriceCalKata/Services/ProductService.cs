@@ -75,7 +75,7 @@ public class ProductService : IProductService
                 _productPrint.PrintDeductedAmount(discountAmount);
             }
         }
-    }
+    } 
     
     public double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck)
     {
