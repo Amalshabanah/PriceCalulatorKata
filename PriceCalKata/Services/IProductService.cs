@@ -12,4 +12,6 @@ public interface IProductService
     void CalculateAndPrintPriceInfoAfterDiscount();
     
     double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck);
+
+    void CalculateAndPrintPriceAfterPrecedenceDiscount();
 }
