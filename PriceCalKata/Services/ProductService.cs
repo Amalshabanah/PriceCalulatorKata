@@ -75,14 +75,14 @@ public class ProductService : IProductService
                 _productPrint.PrintDeductedAmount(discountAmount);
             }
         }
-    } 
+    }
     
     public double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck)
     {
         if (upc == upcToCheck)
             return 7;
         return 0;
-    } 
+    }
     
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
