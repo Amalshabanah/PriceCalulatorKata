@@ -20,8 +20,8 @@ public class ProductService : IProductService
     
     public double CalculateFinalPriceSelectiveDiscount(double price , double tax , double discount , double upcDiscount)
     {
-        return Math.Round( price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount)
-                     - CalculateDiscountAmount(price , upcDiscount) , 2);
+        return Math.Round( price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount) -
+                     CalculateDiscountAmount(price , upcDiscount) , 2);
     }
     
     public double CalculateDiscountAmount(double price, double discount)
@@ -49,19 +49,20 @@ public class ProductService : IProductService
     
     public void CalculateAndPrintPriceInfoAfterSelectiveDiscount()
     {
-        var productWithUpcDiscount = _productRepo.GetAllProduct().
-            FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
-        var productWithoutUpcDiscount = _productRepo.GetAllProduct()
-            .FirstOrDefault(product => product.Upc != product.UpcWithDiscount 
-            && product.Discount != 0);
+        var productWithUpcDiscount =
+            _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
+        var productWithoutUpcDiscount = 
+            _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc != product.UpcWithDiscount &&
+             product.Discount != 0);
         var products = new[] { productWithUpcDiscount , productWithoutUpcDiscount };
         
         foreach (var product in products)
         {
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc , product.UpcWithDiscount);
-            var finalPrice = CalculateFinalPriceSelectiveDiscount(product.Price, product.Tax , product.Discount , upcDiscount);
-            var discountAmount = CalculateDiscountAmount(product.Price , product.Discount)
-                                      + CalculateDiscountAmount(product.Price , upcDiscount);
+            var finalPrice = 
+                CalculateFinalPriceSelectiveDiscount(product.Price, product.Tax , product.Discount , upcDiscount);
+            var discountAmount = CalculateDiscountAmount(product.Price , product.Discount) +
+                                       CalculateDiscountAmount(product.Price , upcDiscount);
 
             if (product.Discount == 0)
             {
