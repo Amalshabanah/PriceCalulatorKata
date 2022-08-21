@@ -314,6 +314,5 @@ public class ProductService : IProductService
             _productPrint.PrintPriceInfo(product, finalPrice);
             _productPrint.PrintDeductedAmount(discountAmount);
         }
-        
     }
 }
