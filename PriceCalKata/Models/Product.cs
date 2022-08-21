@@ -15,7 +15,7 @@ public class Product
     
     public  double UpcDiscount { get; set; }
     
-    public double PackagingCost { get; set; }
+    public string PackagingCost { get; set; }
 
-    public double TransportCost { get; set; }
+    public string TransportCost { get; set; }
 }
