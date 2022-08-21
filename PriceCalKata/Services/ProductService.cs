@@ -189,7 +189,6 @@ public class ProductService : IProductService
         return Math.Round(price * (amount / 100), 2);
     }
     
-    
     public double RemoveDollar(String amount)
     {
         string newAmount;
