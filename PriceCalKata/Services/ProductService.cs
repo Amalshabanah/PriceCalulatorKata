@@ -260,7 +260,7 @@ public class ProductService : IProductService
 
         return Math.Round((price + taxAmount - discountAmount + expensesCost), 2);;
     }
-
+    
     public void CalculateAndPrintPriceCombine()
     {
         var product = _productRepo
@@ -269,7 +269,6 @@ public class ProductService : IProductService
                                        product.PackagingCost != null &&
                                        product.TransportCost != null);
         
-       
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
             var finalPrice =
                 CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
@@ -296,8 +295,7 @@ public class ProductService : IProductService
             .FirstOrDefault(product => product.Upc == product.UpcWithDiscount && 
                                        product.PackagingCost != null &&
                                        product.TransportCost != null);
-        
-       
+
         var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
         var finalPrice =
             CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,
