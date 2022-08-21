@@ -76,14 +76,14 @@ public class ProductService : IProductService
             }
         }
     }
-    
+
     public double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck)
     {
         if (upc == upcToCheck)
             return 7;
         return 0;
     }
-    
+
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
         var productWithDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 15);
