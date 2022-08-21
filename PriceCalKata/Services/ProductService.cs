@@ -2,7 +2,6 @@ using PriceCalKata.Models;
 using PriceCalKata.Repositories;
 
 namespace PriceCalKata.Services;
-
 public class ProductService : IProductService
 {
     private readonly IProductRepository _productRepo;
@@ -21,8 +20,8 @@ public class ProductService : IProductService
 
     public double CalculateFinalPriceSelectiveDiscount(double price, double tax, double discount, double upcDiscount)
     {
-        return Math.Round(price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount)
-                                                                 - CalculateDiscountAmount(price, upcDiscount), 2);
+        return Math.Round( price + CalculateTaxAmount(price, tax) - CalculateDiscountAmount(price, discount) -
+                     CalculateDiscountAmount(price , upcDiscount) , 2);
     }
 
     public double CalculateDiscountAmount(double price, double discount)
@@ -47,30 +46,23 @@ public class ProductService : IProductService
 
         _productPrint.PrintTaxInfo(product, priceAfterTax);
     }
-
-    public double CalculateFinalPricePrecedenceDiscount(double price, double tax, double discount, double upcDiscount)
-    {
-        double priceAfterUpcDiscount = price - CalculateDiscountAmount(price, upcDiscount);
-            double taxAmount = CalculateTaxAmount(priceAfterUpcDiscount, tax);
-            double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, discount);
-            return Math.Round((priceAfterUpcDiscount + taxAmount - discountAmount), 2);
-        }
     
     public void CalculateAndPrintPriceInfoAfterSelectiveDiscount()
     {
-        var productWithUpcDiscount = _productRepo.GetAllProduct()
-            .FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
-        var productWithoutUpcDiscount = _productRepo.GetAllProduct()
-            .FirstOrDefault(product => product.Upc != product.UpcWithDiscount);
-        var products = new[] { productWithUpcDiscount, productWithoutUpcDiscount };
-
+        var productWithUpcDiscount =
+            _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
+        var productWithoutUpcDiscount = 
+            _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc != product.UpcWithDiscount &&
+             product.Discount != 0);
+        var products = new[] { productWithUpcDiscount , productWithoutUpcDiscount };
+        
         foreach (var product in products)
         {
-            var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
-            var finalPrice =
-                CalculateFinalPriceSelectiveDiscount(product.Price, product.Tax, product.Discount, upcDiscount);
-            var discountAmount = CalculateDiscountAmount(product.Price, product.Discount)
-                                 + CalculateDiscountAmount(product.Price, upcDiscount);
+            var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc , product.UpcWithDiscount);
+            var finalPrice = 
+                CalculateFinalPriceSelectiveDiscount(product.Price, product.Tax , product.Discount , upcDiscount);
+            var discountAmount = CalculateDiscountAmount(product.Price , product.Discount) +
+                                       CalculateDiscountAmount(product.Price , upcDiscount);
 
             if (product.Discount == 0)
             {
@@ -84,14 +76,14 @@ public class ProductService : IProductService
             }
         }
     }
-
+    
     public double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck)
     {
         if (upc == upcToCheck)
             return 7;
         return 0;
     }
-
+    
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
         var productWithDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 15);
@@ -115,7 +107,13 @@ public class ProductService : IProductService
             }
         }
     }
-
+    public double CalculateFinalPricePrecedenceDiscount(double price, double tax, double discount, double upcDiscount)
+    {
+        double priceAfterUpcDiscount = price - CalculateDiscountAmount(price, upcDiscount);
+        double taxAmount = CalculateTaxAmount(priceAfterUpcDiscount, tax);
+        double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, discount);
+        return Math.Round((priceAfterUpcDiscount + taxAmount - discountAmount), 2);
+    }
     public void CalculateAndPrintPriceAfterPrecedenceDiscount()
     {
         var product = _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc == product.UpcWithDiscount); 
@@ -135,5 +133,5 @@ public class ProductService : IProductService
                 _productPrint.PrintPriceInfo(product, finalPrice);
                 _productPrint.PrintDeductedAmount(discountAmount);
             }
+        }
     }
-}

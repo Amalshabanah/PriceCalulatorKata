@@ -6,6 +6,7 @@ public class Product
     public string ProductName { get; set; }
     
     public double Price { get; set; }
+
     public double Upc { get; set; }
     
     public double Discount { get; set; }
