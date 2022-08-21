@@ -56,7 +56,6 @@ public class ProductService : IProductService
             return Math.Round((priceAfterUpcDiscount + taxAmount - discountAmount), 2);
         }
     
-
     public void CalculateAndPrintPriceInfoAfterSelectiveDiscount()
     {
         var productWithUpcDiscount = _productRepo.GetAllProduct()
