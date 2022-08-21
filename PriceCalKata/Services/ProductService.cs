@@ -82,7 +82,7 @@ public class ProductService : IProductService
         if (upc == upcToCheck)
             return 7;
         return 0;
-    }
+    } 
     
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
