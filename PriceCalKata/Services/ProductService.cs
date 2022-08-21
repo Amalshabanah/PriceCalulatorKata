@@ -91,6 +91,7 @@ public class ProductService : IProductService
             return 7;
         return 0;
     }
+
     public void CalculateAndPrintPriceInfoAfterDiscount()
     {
         var productWithDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Discount == 15);
