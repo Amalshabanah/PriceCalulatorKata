@@ -10,4 +10,6 @@ public interface IProductService
     void CalculateAndPrintPriceInfoAfterTax();
 
     void CalculateAndPrintPriceInfoAfterDiscount();
+    
+    double CalculateDiscountAfterCheckUpc(double upc, double upcToCheck);
 }
