@@ -153,7 +153,7 @@ public class ProductService : IProductService
                                                                  product.TransportCost == null);
         var products = new[] { productWithExpenses, productWithoutExpenses };
         foreach (var product in products)
-        { 
+        {
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
             var finalPrice =
                 CalculateFinalPriceWithExpenses(product.Price, product.Tax, product.Discount, upcDiscount, product.PackagingCost ,product.TransportCost);
