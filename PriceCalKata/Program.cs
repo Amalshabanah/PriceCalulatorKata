@@ -11,7 +11,8 @@ namespace PriceCalKata
             var productPrint = new ProductPrintService();
             var productService = new ProductService(productRepo , productPrint);
             
-            productService.CalculateAndPrintPriceWithExpenses();
+            productService.CalculateAndPrintPriceCombine();
+            productService.CalculateAndPrintPriceMultiplicative();
         }
     }
 }
