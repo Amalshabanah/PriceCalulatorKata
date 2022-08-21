@@ -49,8 +49,11 @@ public class ProductService : IProductService
     
     public void CalculateAndPrintPriceInfoAfterSelectiveDiscount()
     {
-        var productWithUpcDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
-        var productWithoutUpcDiscount = _productRepo.GetAllProduct().FirstOrDefault(product => product.Upc != product.UpcWithDiscount);
+        var productWithUpcDiscount = _productRepo.GetAllProduct().
+            FirstOrDefault(product => product.Upc == product.UpcWithDiscount);
+        var productWithoutUpcDiscount = _productRepo.GetAllProduct()
+            .FirstOrDefault(product => product.Upc != product.UpcWithDiscount 
+            && product.Discount != 0);
         var products = new[] { productWithUpcDiscount , productWithoutUpcDiscount };
         
         foreach (var product in products)
