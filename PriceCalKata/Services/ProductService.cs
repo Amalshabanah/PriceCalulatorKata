@@ -28,7 +28,7 @@ public class ProductService : IProductService
     {
         return Math.Round(price * (discount / 100) , 2);
     }
-   
+    
     public double CalculateTaxAmount(double price, double tax)
     {
         return Math.Round(price * (tax / 100) , 2);
