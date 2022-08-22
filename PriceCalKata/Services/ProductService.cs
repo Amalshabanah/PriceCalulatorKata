@@ -236,4 +236,76 @@ public class ProductService : IProductService
         
         return Math.Round((packagingCost + transportCost), 2);
     }
+    
+    public double CalculatePriceAfterMultiplicativeDiscount(double price, double tax, double discount, double upcDiscount,
+        string packaging, string transport){
+        double priceAfterTax = CalculatePriceAfterTax(price, tax);
+        double upcDiscountAmount = CalculateDiscountAmount(price, upcDiscount);
+        double discountAmount = CalculateDiscountAmount((price - upcDiscountAmount), discount);
+        double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
+        
+        return  Math.Round((priceAfterTax - (discountAmount + upcDiscountAmount) + expensesCost) , 2);
+    }
+    
+    public double CalculatePriceAfterCombineDiscount(double price, double tax , double discount , double upcDiscount , string packaging , string transport)
+    { 
+        double taxAmount = CalculateTaxAmount(price, tax);
+        double discountAmount = CalculateDiscountAmount(price, discount) + CalculateDiscountAmount(price , upcDiscount);
+        double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
+
+        return Math.Round((price + taxAmount - discountAmount + expensesCost), 2);;
+    }
+    
+    public void CalculateAndPrintPriceCombine()
+    {
+        var product = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.Upc == product.UpcWithDiscount && 
+                                       product.PackagingCost != null &&
+                                       product.TransportCost != null);
+        
+            var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
+            var finalPrice = CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
+                    upcDiscount, product.PackagingCost ,product.TransportCost);
+            var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
+                                 CalculateDiscountAmount(product.Price, upcDiscount);
+
+            if (product.Discount == 0)
+            {
+                _productPrint.PrintPriceInfo(product, finalPrice);
+            }
+
+            else
+            {
+                _productPrint.PrintPriceInfo(product, finalPrice);
+                _productPrint.PrintDeductedAmount(discountAmount);
+            }
+    }
+
+    public void CalculateAndPrintPriceMultiplicative()
+    {
+        var product = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.Upc == product.UpcWithDiscount && 
+                                       product.PackagingCost != null &&
+                                       product.TransportCost != null);
+
+        var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
+        var finalPrice = CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,
+                upcDiscount, product.PackagingCost ,product.TransportCost);
+        var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
+        var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
+                             CalculateDiscountAmount(product.Price, upcDiscount);
+
+        if (product.Discount == 0)
+        {
+            _productPrint.PrintPriceInfo(product, finalPrice);
+        }
+
+        else
+        {
+            _productPrint.PrintPriceInfo(product, finalPrice);
+            _productPrint.PrintDeductedAmount(discountAmount);
+        }
+    }
 }
