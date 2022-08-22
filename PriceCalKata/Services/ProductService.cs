@@ -316,7 +316,7 @@ public class ProductService : IProductService
         double taxAmount = CalculateTaxAmount(price, tax);
         double discountAmount = CalculateDiscountAmount(price, discount) + CalculateDiscountAmount(price, upcDiscount);
         double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
-        double capAmount = GetCap(cap , price);
+        double capAmount = GetCap(cap, price);
 
         if (discountAmount < capAmount)
         {
@@ -326,27 +326,23 @@ public class ProductService : IProductService
             return Math.Round(price + taxAmount - capAmount + expensesCost, 2);
     }
 
-    public double GetCap(string cap , double price)
+    public double GetCap(string cap, double price)
     {
-        double capAmount = 0;
-
         if (cap == null)
         {
-            capAmount = 0;
+            return 0;
         }
         else
         {
             if (cap[0] == '$')
             {
-                capAmount = RemoveDollar(cap);
+               return RemoveDollar(cap);
             }
             else
             {
-                capAmount = CalculateCostAmount(price ,RemovePercentage(cap));
+                return  CalculateCostAmount(price ,RemovePercentage(cap));
             }
         }
-
-        return capAmount;
     }
     
     public void CalculateAndPrintPriceWithCap()
@@ -366,7 +362,7 @@ public class ProductService : IProductService
         {
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
             var finalPrice = CalculateFinalPriceWithCap(product.Price, product.Tax, product.Discount, upcDiscount,
-                    product.PackagingCost, product.TransportCost , product.Cap);
+                    product.PackagingCost, product.TransportCost, product.Cap);
             var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
             var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
                                  CalculateDiscountAmount(product.Price, upcDiscount);
