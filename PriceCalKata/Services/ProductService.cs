@@ -381,7 +381,7 @@ public class ProductService : IProductService
         }
     }
 
-    public double ReturnCapOrDiscount(string cap, double discount , double price)
+    public double ReturnCapOrDiscount(string cap, double discount, double price)
     {
         if (discount < GetCap(cap, price))
             return discount;
