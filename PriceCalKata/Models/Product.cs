@@ -14,4 +14,8 @@ public class Product
     public double UpcWithDiscount { get; } = 12345;
     
     public  double UpcDiscount { get; set; }
+    
+    public string PackagingCost { get; set; }
+
+    public string TransportCost { get; set; }
 }

@@ -56,7 +56,7 @@ public class ProductService : IProductService
             double taxAmount = CalculateTaxAmount(priceAfterUpcDiscount, tax);
             double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, discount);
             return Math.Round((priceAfterUpcDiscount + taxAmount - discountAmount), 2);
-        }
+    }
     
     public void CalculateAndPrintPriceInfoAfterSelectiveDiscount()
     {
@@ -137,5 +137,103 @@ public class ProductService : IProductService
                 _productPrint.PrintPriceInfo(product, finalPrice);
                 _productPrint.PrintDeductedAmount(discountAmount);
             }
+    }
+
+    public void CalculateAndPrintPriceWithExpenses()
+    {
+        var productWithExpenses = _productRepo
+                                  .GetAllProduct()
+                                  .FirstOrDefault(product => product.Upc == product.UpcWithDiscount && 
+                                                             product.PackagingCost != null &&
+                                                             product.TransportCost != null);
+       var productWithoutExpenses = _productRepo
+                                      .GetAllProduct()
+                                      .FirstOrDefault(product => product.Discount == 0 &&
+                                                                 product.TransportCost == null &&
+                                                                 product.TransportCost == null);
+        var products = new[] { productWithExpenses, productWithoutExpenses };
+        foreach (var product in products)
+        {
+            var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
+            var finalPrice =
+                CalculateFinalPriceWithExpenses(product.Price, product.Tax, product.Discount, upcDiscount, product.PackagingCost ,product.TransportCost);
+            var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
+            var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
+                                 CalculateDiscountAmount(product.Price, upcDiscount);
+
+            if (product.Discount == 0)
+            {
+                _productPrint.PrintPriceInfo(product, finalPrice);
+            }
+
+            else
+            {
+                _productPrint.PrintPriceInfo(product, finalPrice);
+                _productPrint.PrintDeductedAmount(discountAmount);
+            }
+        }
+    }
+
+    public double CalculateFinalPriceWithExpenses(double price, double tax, double discount, double upcDiscount, string packaging,
+        string transport)
+    {
+        double taxAmount = CalculateTaxAmount(price, tax);
+        double discountAmount = CalculateDiscountAmount(price, discount) + CalculateDiscountAmount(price , upcDiscount);
+        double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
+
+        return Math.Round((price + taxAmount - discountAmount + expensesCost), 2);
+    }
+
+    public double CalculateCostAmount(double price, double amount)
+    {
+        return Math.Round(price * (amount / 100), 2);
+    }
+    
+    public double RemoveDollar(String amount)
+    {
+        return Convert.ToDouble(amount.Remove(0, 1));
+    }
+    
+    public double RemovePercentage(String amount)
+    {
+        return Convert.ToDouble(amount.Remove(amount.Length - 1, 1));
+    }
+
+    public double CalculatePackagingAndTransportCost(string packaging, string transport , double price)
+    {
+        double packagingCost = 0;
+        double transportCost = 0;
+        
+        if (packaging == null)
+            packagingCost = 0;
+        else if (transport == null)
+            packagingCost = 0;
+        else
+        {
+            if (packaging[0] == '$' || transport[0] == '$')
+            {
+                if (packaging[0] == '$')
+                {
+                    packagingCost = RemoveDollar(packaging);
+                }
+
+                if (transport[0] == '$')
+                {
+                    transportCost = RemoveDollar(transport);
+                }
+            }
+            
+            if (packaging[0] != '$')
+                {
+                    packagingCost = CalculateCostAmount(price, RemovePercentage(packaging));
+
+                }
+            if (transport[0] != '$')
+                {
+                    transportCost = CalculateCostAmount(price, RemovePercentage(transport));
+                }
+            }
+        
+        return Math.Round((packagingCost + transportCost), 2);
     }
 }

@@ -6,7 +6,8 @@ public class ProductRepository : IProductRepository
     private static  List<Product> _products = new List<Product>
     {
         new Product { ProductName = "The Little Prince", Upc = 12345, Price = 20.25, Tax = 20 , Discount = 15},
-        new Product { ProductName = "The Big Prince", Upc = 123, Price = 45.25},
+        new Product { ProductName = "The Big Prince", Upc = 123, Tax = 21 ,Price = 20.25},
+        new Product { ProductName = "The Huge Prince" , Upc = 12345, Price = 20.25 ,Tax = 21, Discount = 15, PackagingCost = "1%" , TransportCost = "$2.2"},
         new Product { ProductName = "The A Prince", Upc = 789, Price = 20.25, Tax = 21 , Discount = 15},
         new Product { ProductName = "The W Prince", Upc = 125, Price = 90, Tax = 70 , Discount = 10}
     };
