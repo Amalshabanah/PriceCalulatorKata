@@ -191,24 +191,19 @@ public class ProductService : IProductService
     
     public double RemoveDollar(String amount)
     {
-        string newAmount;
-        newAmount = amount.Remove(0, 1);
-
-        return Convert.ToDouble(newAmount);
+        return Convert.ToDouble(amount.Remove(0, 1));
     }
     
     public double RemovePercentage(String amount)
     {
-        string newAmount;
-        newAmount = amount.Remove(amount.Length - 1, 1);
-        
-        return Convert.ToDouble(newAmount);
+        return Convert.ToDouble(amount.Remove(amount.Length - 1, 1));
     }
 
     public double CalculatePackagingAndTransportCost(string packaging, string transport , double price)
     {
         double packagingCost = 0;
         double transportCost = 0;
+        
         if (packaging == null)
             packagingCost = 0;
         else if (transport == null)
