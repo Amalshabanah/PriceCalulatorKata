@@ -192,7 +192,6 @@ public class ProductService : IProductService
     public double RemoveDollar(String amount)
     {
         string newAmount;
-        newAmount = amount.Remove(0, 1);
 
         return Convert.ToDouble(newAmount);
     }
