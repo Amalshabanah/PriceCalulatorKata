@@ -340,7 +340,7 @@ public class ProductService : IProductService
             }
             else
             {
-                return  CalculateCostAmount(price ,RemovePercentage(cap));
+                return  CalculateCostAmount(price, RemovePercentage(cap));
             }
         }
     }
