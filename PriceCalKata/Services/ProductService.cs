@@ -56,7 +56,7 @@ public class ProductService : IProductService
             double taxAmount = CalculateTaxAmount(priceAfterUpcDiscount, tax);
             double discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, discount);
             return Math.Round((priceAfterUpcDiscount + taxAmount - discountAmount), 2);
-        }
+    }
     
     public void CalculateAndPrintPriceInfoAfterSelectiveDiscount()
     {
