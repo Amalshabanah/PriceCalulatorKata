@@ -246,10 +246,10 @@ public class ProductService : IProductService
         string packaging, string transport){
         double priceAfterTax = CalculatePriceAfterTax(price, tax);
         double upcDiscountAmount = CalculateDiscountAmount(price, upcDiscount);
-        double discountAmount = CalculateDiscountAmount((price -upcDiscountAmount), discount);
+        double discountAmount = CalculateDiscountAmount((price - upcDiscountAmount), discount);
         double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
         
-        return  Math.Round((priceAfterTax - (discountAmount +upcDiscountAmount) + expensesCost) , 2);
+        return  Math.Round((priceAfterTax - (discountAmount + upcDiscountAmount) + expensesCost) , 2);
     }
     
     public double CalculatePriceAfterCombineDiscount(double price, double tax , double discount , double upcDiscount , string packaging , string transport)
@@ -270,8 +270,7 @@ public class ProductService : IProductService
                                        product.TransportCost != null);
         
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
-            var finalPrice =
-                CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
+            var finalPrice = CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
                     upcDiscount, product.PackagingCost ,product.TransportCost);
             var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
                                  CalculateDiscountAmount(product.Price, upcDiscount);
@@ -297,8 +296,7 @@ public class ProductService : IProductService
                                        product.TransportCost != null);
 
         var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
-        var finalPrice =
-            CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,
+        var finalPrice = CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,
                 upcDiscount, product.PackagingCost ,product.TransportCost);
         var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
         var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
