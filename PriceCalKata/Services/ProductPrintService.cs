@@ -19,8 +19,8 @@ public class ProductPrintService :  IProductPrintService
                           $"price = ${product.Price.ToString("0.00")}.");
 
         Console.WriteLine($"Cost: {product.PriceWithCurrency}\n" +
-                          $"Tax: {currency} {tax}\n" +
-                          $"Total: {currency} {priceAfterTax}\n");
+                          $"Tax: {tax} {currency}\n" +
+                          $"Total: {priceAfterTax} {currency}\n");
     }
     
     public void PrintPriceInfo(Product product , double finalPrice)
