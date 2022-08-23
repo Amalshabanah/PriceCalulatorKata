@@ -266,7 +266,7 @@ public class ProductService : IProductService
         
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
             var finalPrice = CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
-                 upcDiscount, product.PackagingCost ,product.TransportCost);
+                    upcDiscount, product.PackagingCost ,product.TransportCost);
             var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
                                  CalculateDiscountAmount(product.Price, upcDiscount);
 
