@@ -18,6 +18,4 @@ public class Product
     public string PackagingCost { get; set; }
 
     public string TransportCost { get; set; }
-    
-    public string Cap { get; set; }
 }
