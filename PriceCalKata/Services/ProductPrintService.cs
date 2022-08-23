@@ -13,7 +13,7 @@ public class ProductPrintService :  IProductPrintService
                           $"after {product.Tax}% tax.");
     }
     
-    public void PrintTaxInfoًWithCurrency(Product product , double priceAfterTax, string currency, double tax )
+    public void PrintTaxInfoWithCurrency(Product product , double priceAfterTax, string currency, double tax )
     {
         Console.WriteLine($"Sample product : Book with name = {product.ProductName} , UPC = {product.Upc} , "+
                           $"price = ${product.Price.ToString("0.00")}.");

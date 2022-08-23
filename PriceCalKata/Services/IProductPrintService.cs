@@ -9,5 +9,5 @@ public interface IProductPrintService
 
     void PrintDeductedAmount(double discountAmount);
 
-    void PrintTaxInfoًWithCurrency(Product product, double priceAfterTax, string currency, double tax);
+    void PrintTaxInfoWithCurrency(Product product, double priceAfterTax, string currency, double tax);
 }

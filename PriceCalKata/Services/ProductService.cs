@@ -409,7 +409,7 @@ public class ProductService : IProductService
             var priceAfterTax = CalculatePriceWithCurrencyAfterTax(product.PriceWithCurrency, product.Tax);
             var currency = GetCurrancy(product.PriceWithCurrency);
             var tax = CalculateTaxAmount(GetPriceWithoutCurrency(product.PriceWithCurrency), product.Tax);
-            _productPrint.PrintTaxInfoًWithCurrency(product, priceAfterTax, currency, tax);
+            _productPrint.PrintTaxInfoWithCurrency(product, priceAfterTax, currency, tax);
         }
     }
 
@@ -420,7 +420,6 @@ public class ProductService : IProductService
 	 
     public string GetCurrancy(string price)
     {
-        return new String(price.Where(c=>Char.IsLetter(c)).ToArray());
-
+        return new String(price.Where(character=>Char.IsLetter(character)).ToArray());
     }
 }
