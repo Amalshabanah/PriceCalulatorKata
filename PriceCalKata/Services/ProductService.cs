@@ -265,7 +265,8 @@ public class ProductService : IProductService
                                        product.TransportCost != null);
         
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
-            var finalPrice = CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,upcDiscount, product.PackagingCost, product.TransportCost);
+            var finalPrice = CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
+                upcDiscount, product.PackagingCost, product.TransportCost);
             var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
                                  CalculateDiscountAmount(product.Price, upcDiscount);
 
@@ -290,7 +291,8 @@ public class ProductService : IProductService
                                        product.TransportCost != null);
 
         var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
-        var finalPrice = CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,upcDiscount,product.PackagingCost, product.TransportCost);
+        var finalPrice = CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,
+            upcDiscount,product.PackagingCost, product.TransportCost);
         var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
         var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
                              CalculateDiscountAmount(product.Price, upcDiscount);
