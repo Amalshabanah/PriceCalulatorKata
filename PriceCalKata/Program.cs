@@ -10,9 +10,8 @@ namespace PriceCalKata
             var productRepo = new ProductRepository();
             var productPrint = new ProductPrintService();
             var productService = new ProductService(productRepo , productPrint);
-            
-            productService.CalculateAndPrintPriceCombine();
-            productService.CalculateAndPrintPriceMultiplicative();
+
+            productService.CalculateAndPrintPriceWithCap(); 
         }
     }
 }
