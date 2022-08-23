@@ -13,7 +13,7 @@ public class ProductRepository : IProductRepository
         new Product {ProductName = "The Prince", Upc = 12345, Price = 20.25, Tax = 21, Discount = 15, Cap = "$4"}, 
         new Product {ProductName = "The Prince", Upc = 12345, Price = 20.25, Tax = 21, Discount = 15, Cap = "30%"}
     };
-
+    
     public Product GetFirstProductData()
   {
       return _products.FirstOrDefault();
