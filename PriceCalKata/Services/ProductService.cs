@@ -420,6 +420,6 @@ public class ProductService : IProductService
 	 
     public string GetCurrancy(string price)
     {
-        return new String(price.Where(character=>Char.IsLetter(character)).ToArray());
+        return new String(price.Where(character => Char.IsLetter(character)).ToArray());
     }
 }
