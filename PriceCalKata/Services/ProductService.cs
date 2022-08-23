@@ -387,4 +387,40 @@ public class ProductService : IProductService
         else
             return GetCap(cap, price);
     }
+    
+    public double CalculatePriceWithCurrencyAfterTax(string price, double tax)
+    {
+        var newPrice = GetPriceWithoutCurrency(price);
+        return Math.Round(newPrice + CalculateTaxAmount(newPrice, tax), 2);
+    }
+
+    public void CalculateAndPrintPriceWithCurrencyInfoAfterTax()
+    {
+        var firstProduct = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.PriceWithCurrency != null);
+        var secondProduct = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.Upc == 13);
+        var products = new[] { firstProduct, secondProduct };
+        
+        foreach (var product in products)
+        {
+            var priceAfterTax = CalculatePriceWithCurrencyAfterTax(product.PriceWithCurrency, product.Tax);
+            var currency = GetCurrancy(product.PriceWithCurrency);
+            var tax = CalculateTaxAmount(GetPriceWithoutCurrency(product.PriceWithCurrency), product.Tax);
+            _productPrint.PrintTaxInfoًWithCurrency(product, priceAfterTax, currency, tax);
+        }
+    }
+
+    public double GetPriceWithoutCurrency(string price)
+    {
+        return Convert.ToDouble(new String(price.Where(c=> Char.IsDigit(c) ||  c == '.').ToArray()));
+    }
+	 
+    public string GetCurrancy(string price)
+    {
+        return new String(price.Where(c=>Char.IsLetter(c)).ToArray());
+
+    }
 }
