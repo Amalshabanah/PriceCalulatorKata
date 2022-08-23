@@ -12,6 +12,7 @@ namespace PriceCalKata
             var productService = new ProductService(productRepo, productPrint);
             
             productService.CalculateAndPrintPriceWithCurrencyInfoAfterTax();
+            
         }
     }
 }
