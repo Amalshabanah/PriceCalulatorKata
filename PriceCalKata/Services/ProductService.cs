@@ -247,10 +247,10 @@ public class ProductService : IProductService
         return  Math.Round((priceAfterTax - (discountAmount + upcDiscountAmount) + expensesCost) , 2);
     }
     
-    public double CalculatePriceAfterCombineDiscount(double price, double tax , double discount , double upcDiscount , string packaging , string transport)
+    public double CalculatePriceAfterCombineDiscount(double price, double tax, double discount, double upcDiscount, string packaging, string transport)
     { 
         double taxAmount = CalculateTaxAmount(price, tax);
-        double discountAmount = CalculateDiscountAmount(price, discount) + CalculateDiscountAmount(price , upcDiscount);
+        double discountAmount = CalculateDiscountAmount(price, discount) + CalculateDiscountAmount(price, upcDiscount);
         double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
 
         return Math.Round((price + taxAmount - discountAmount + expensesCost), 2);;
@@ -266,7 +266,7 @@ public class ProductService : IProductService
         
             var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
             var finalPrice = CalculatePriceAfterCombineDiscount(product.Price, product.Tax, product.Discount,
-                    upcDiscount, product.PackagingCost ,product.TransportCost);
+                upcDiscount, product.PackagingCost, product.TransportCost);
             var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
                                  CalculateDiscountAmount(product.Price, upcDiscount);
 
@@ -292,7 +292,7 @@ public class ProductService : IProductService
 
         var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
         var finalPrice = CalculatePriceAfterMultiplicativeDiscount(product.Price, product.Tax, product.Discount,
-                upcDiscount, product.PackagingCost ,product.TransportCost);
+            upcDiscount, product.PackagingCost, product.TransportCost);
         var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
         var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
                              CalculateDiscountAmount(product.Price, upcDiscount);
@@ -307,5 +307,84 @@ public class ProductService : IProductService
             _productPrint.PrintPriceInfo(product, finalPrice);
             _productPrint.PrintDeductedAmount(discountAmount);
         }
+    }
+ public double CalculateFinalPriceWithCap(double price, double tax, double discount, double upcDiscount,
+        string packaging,
+        string transport, string cap)
+    {
+        double taxAmount = CalculateTaxAmount(price, tax);
+        double discountAmount = CalculateDiscountAmount(price, discount) + CalculateDiscountAmount(price, upcDiscount);
+        double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
+        double capAmount = GetCap(cap, price);
+
+        if (discountAmount < capAmount)
+        {
+            return Math.Round((price + taxAmount - discountAmount + expensesCost), 2);
+        }
+        else 
+            return Math.Round(price + taxAmount - capAmount + expensesCost, 2);
+    }
+
+    public double GetCap(string cap, double price)
+    {
+        if (cap == null)
+        {
+            return 0;
+        }
+        else
+        {
+            if (cap[0] == '$')
+            {
+               return RemoveDollar(cap);
+            }
+            else
+            {
+                return  CalculateCostAmount(price, RemovePercentage(cap));
+            }
+        }
+    }
+
+    public void CalculateAndPrintPriceWithCap()
+    {
+        var firstProductwithCap = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.Cap == "20%");
+        var secondProductWithCap = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.Cap == "$4");
+        var thirdProductWithCap = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product => product.Cap == "30%");
+
+        var products = new[] {firstProductwithCap, secondProductWithCap, thirdProductWithCap};
+        foreach (var product in products)
+        {
+            var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
+            var finalPrice = CalculateFinalPriceWithCap(product.Price, product.Tax, product.Discount, upcDiscount,
+                    product.PackagingCost, product.TransportCost, product.Cap);
+            var priceAfterUpcDiscount = product.Price - CalculateDiscountAmount(product.Price, upcDiscount);
+            var discountAmount = CalculateDiscountAmount(product.Price, product.Discount) +
+                                 CalculateDiscountAmount(product.Price, upcDiscount);
+            var deducedAmount = ReturnCapOrDiscount(product.Cap, discountAmount, product.Price);
+
+            if (product.Discount == 0)
+            {
+                _productPrint.PrintPriceInfo(product, finalPrice);
+            }
+
+            else
+            {
+                _productPrint.PrintPriceInfo(product, finalPrice);
+                _productPrint.PrintDeductedAmount(deducedAmount);
+            }
+        }
+    }
+
+    public double ReturnCapOrDiscount(string cap, double discount, double price)
+    {
+        if (discount < GetCap(cap, price))
+            return discount;
+        else
+            return GetCap(cap, price);
     }
 }
