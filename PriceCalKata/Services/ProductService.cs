@@ -206,35 +206,40 @@ public class ProductService : IProductService
         
         if (packaging == null)
             packagingCost = 0;
-        else if (transport == null)
-            packagingCost = 0;
         else
-        {
-            if (packaging[0] == '$' || transport[0] == '$')
+        { 
+            if (packaging[0] == '$')
             {
-                if (packaging[0] == '$')
-                {
-                    packagingCost = RemoveDollar(packaging);
-                }
-
-                if (transport[0] == '$')
-                {
-                    transportCost = RemoveDollar(transport);
-                }
+                packagingCost = RemoveDollar(packaging);
             }
-            
-            if (packaging[0] != '$')
+            else
+            {
+                if (packaging[0] != '$')
                 {
                     packagingCost = CalculateCostAmount(price, RemovePercentage(packaging));
 
                 }
-            if (transport[0] != '$')
-                {
-                    transportCost = CalculateCostAmount(price, RemovePercentage(transport));
-                }
             }
+        }
+
+        if (transport == null)
+            transportCost = 0;
+        else 
         
-        return Math.Round((packagingCost + transportCost), 2);
+
+        if (transport[0] == '$')
+        {
+            transportCost = RemoveDollar(transport);
+        }
+
+        else {
+            if (transport[0] != '$')
+            {
+                transportCost = CalculateCostAmount(price, RemovePercentage(transport));
+            }
+        }
+        
+        return Math.Round((packagingCost + transportCost), 4);
     }
     
     public double CalculatePriceAfterMultiplicativeDiscount(double price, double tax, double discount, double upcDiscount,
