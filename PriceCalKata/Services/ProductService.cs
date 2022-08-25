@@ -468,7 +468,6 @@ public class ProductService : IProductService
                 if (packaging[0] != '$')
                 {
                     packagingCost = CalculateCostAmountFourDigits(price, RemovePercentage(packaging));
-
                 }
             }
         }
