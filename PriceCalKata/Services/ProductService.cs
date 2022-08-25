@@ -437,14 +437,6 @@ public class ProductService : IProductService
     {
         return Math.Round(price * (discount / 100), 4);
     }
-    public double CalculatePriceAfterCombineDiscountFourDigits(double price, double tax , double discount , double upcDiscount , string packaging , string transport)
-    { 
-        double taxAmount = CalculateCostAmountFourDigits(price, tax);
-        double discountAmount = CalculateDiscountAmountFourDigits(price, discount) + CalculateDiscountAmount(price , upcDiscount);
-        double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
-
-        return Math.Round((price + taxAmount - discountAmount + expensesCost), 4);;
-    }
     
     public double CalculatePriceAfterMultiplicativeDiscountFourDigits(string price, double tax, double discount, double upcDiscount,
         string packaging, string transport)
