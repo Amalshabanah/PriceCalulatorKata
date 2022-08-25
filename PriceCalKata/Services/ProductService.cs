@@ -36,6 +36,11 @@ public class ProductService : IProductService
     {
         return Math.Round(price * (tax / 100), 2);
     }
+    
+    public double CalculateTaxAmountFourDigits(double price, double tax)
+    {
+        return Math.Round(price * (tax / 100), 4);
+    }
 
     public double CalculatePriceAfterTax(double price, double tax)
     {
@@ -421,5 +426,110 @@ public class ProductService : IProductService
     public string GetCurrancy(string price)
     {
         return new String(price.Where(character => Char.IsLetter(character)).ToArray());
+    }
+    
+    public double CalculateCostAmountFourDigits(double price, double amount)
+    {
+        return Math.Round(price * (amount / 100), 4);
+    }
+    
+    public double CalculateDiscountAmountFourDigits(double price, double discount)
+    {
+        return Math.Round(price * (discount / 100), 4);
+    }
+    public double CalculatePriceAfterCombineDiscountFourDigits(double price, double tax , double discount , double upcDiscount , string packaging , string transport)
+    { 
+        double taxAmount = CalculateCostAmountFourDigits(price, tax);
+        double discountAmount = CalculateDiscountAmountFourDigits(price, discount) + CalculateDiscountAmount(price , upcDiscount);
+        double expensesCost = CalculatePackagingAndTransportCost(packaging, transport, price);
+
+        return Math.Round((price + taxAmount - discountAmount + expensesCost), 4);;
+    }
+    
+    public double CalculatePriceAfterMultiplicativeDiscountFourDigits(string price, double tax, double discount, double upcDiscount,
+        string packaging, string transport)
+    { 
+        var newPrice = GetPriceWithoutCurrency(price);
+        double priceAfterTax = CalculatePriceAfterTax(newPrice, tax);
+        double upcDiscountAmount = CalculateDiscountAmountFourDigits(newPrice, upcDiscount);
+        double discountAmount = CalculateDiscountAmountFourDigits((newPrice - upcDiscountAmount), discount);
+        double expensesCost = CalculatePackagingAndTransportCostFourDigits(packaging, transport, newPrice);
+        
+        return  Math.Round((priceAfterTax - (discountAmount + upcDiscountAmount) + expensesCost) , 4);
+    }
+    
+    public double CalculatePackagingAndTransportCostFourDigits(string packaging, string transport , double price)
+    {
+        double packagingCost = 0;
+        double transportCost = 0;
+        
+        if (packaging == null)
+            packagingCost = 0;
+        else
+        { 
+            if (packaging[0] == '$')
+            {
+                packagingCost = RemoveDollar(packaging);
+            }
+            else
+            {
+                if (packaging[0] != '$')
+                {
+                    packagingCost = CalculateCostAmountFourDigits(price, RemovePercentage(packaging));
+
+                }
+            }
+        }
+
+        if (transport == null)
+            transportCost = 0;
+        else 
+        
+
+            if (transport[0] == '$')
+            {
+                transportCost = RemoveDollar(transport);
+            }
+
+            else {
+            if (transport[0] != '$')
+            {
+                transportCost = CalculateCostAmountFourDigits(price, RemovePercentage(transport));
+            }
+        }
+        
+        return Math.Round((packagingCost + transportCost), 4);
+    }
+    
+    public void CalculateAndPrintPriceMultiplicativeFourDigits()
+    {
+        var product = _productRepo
+            .GetAllProduct()
+            .FirstOrDefault(product =>product.ProductName == "T");
+
+        var newPrice = GetPriceWithoutCurrency(product.PriceWithCurrency);
+        var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
+        var finalPrice = CalculatePriceAfterMultiplicativeDiscountFourDigits(product.PriceWithCurrency, 
+            product.Tax, product.Discount, upcDiscount, product.PackagingCost ,product.TransportCost);
+        var priceAfterUpcDiscount = newPrice - CalculateDiscountAmount(newPrice, upcDiscount);
+        var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
+                             CalculateDiscountAmount(newPrice, upcDiscount);
+        var currency = GetCurrancy(product.PriceWithCurrency);
+        var tax = CalculateTaxAmountFourDigits(newPrice, product.Tax);
+        var expense = CalculatePackagingAndTransportCostFourDigits( 
+            product.PackagingCost, product.TransportCost, newPrice);
+        
+
+        if (product.Discount == 0)
+        {
+            _productPrint.PrintPriceInfo(product, finalPrice);
+        }
+
+        else
+        {
+            _productPrint.PrintPriceInfo(product, finalPrice);
+            _productPrint.PrintMultiplicativeInfoWithCurrency(product, finalPrice, currency, tax, expense,
+                discountAmount);
+        }
     }
 }

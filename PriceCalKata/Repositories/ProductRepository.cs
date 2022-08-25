@@ -13,8 +13,9 @@ public class ProductRepository : IProductRepository
         new Product {ProductName = "The Prince", Upc = 12345, Price = 20.25, Tax = 21, Discount = 15, Cap = "$4"}, 
         new Product {ProductName = "The Prince", Upc = 12345, Price = 20.25, Tax = 21, Discount = 15, Cap = "30%"},
         new Product {ProductName = "The S Prince", Upc = 111, Tax = 20, PriceWithCurrency = "20.25 USD"},
-        new Product {ProductName = "The ww Prince", Upc = 13, Tax = 20, PriceWithCurrency = "17.76 GBP"}
-    };
+        new Product {ProductName = "The ww Prince", Upc = 13, Tax = 20, PriceWithCurrency = "17.76 GBP"},
+        new Product {ProductName = "T", Upc = 12345, Tax = 21, Discount = 15, PriceWithCurrency = "20.25 USD", TransportCost = "3%"}
+        };
     
     public Product GetFirstProductData()
   {

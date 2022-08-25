@@ -23,6 +23,19 @@ public class ProductPrintService :  IProductPrintService
                           $"Total: {priceAfterTax} {currency}\n");
     }
     
+    public void PrintMultiplicativeInfoWithCurrency(Product product , double finalPrice, string currency, double tax,
+        double expence, double discountAmount)
+    {
+        Console.WriteLine($"Sample product : Book with name = {product.ProductName} , UPC = {product.Upc} , "+
+                          $"price = ${product.PriceWithCurrency}.");
+
+        Console.WriteLine($"Cost: {product.PriceWithCurrency}\n" +
+                          $"Tax: {tax.ToString("0.00")} {currency}\n" +
+                          $"Discount: {discountAmount.ToString("0.00")} {currency}\n"+
+                          $"Transort: {expence.ToString("0.00")}\n"+
+                          $"Total: {finalPrice.ToString("0.00")} {currency}\n");
+    }
+    
     public void PrintPriceInfo(Product product , double finalPrice)
     {
         Console.WriteLine($"Sample product : Book with name = {product.ProductName} , UPC = {product.Upc} , "+
