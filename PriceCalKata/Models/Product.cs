@@ -20,4 +20,6 @@ public class Product
     public string TransportCost { get; set; }
     
     public string Cap { get; set; }
+    
+    public string PriceWithCurrency { get; set; }
 }

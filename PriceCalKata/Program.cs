@@ -9,9 +9,9 @@ namespace PriceCalKata
         {
             var productRepo = new ProductRepository();
             var productPrint = new ProductPrintService();
-            var productService = new ProductService(productRepo , productPrint);
+            var productService = new ProductService(productRepo, productPrint);
 
-            productService.CalculateAndPrintPriceWithCap(); 
+            productService.CalculateAndPrintPriceWithCurrencyInfoAfterTax();  
         }
     }
 }
