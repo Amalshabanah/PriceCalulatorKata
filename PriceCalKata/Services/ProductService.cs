@@ -420,7 +420,7 @@ public class ProductService : IProductService
 
     public double GetPriceWithoutCurrency(string price)
     {
-        return Convert.ToDouble(new String(price.Where(c=> Char.IsDigit(c) ||  c == '.').ToArray()));
+        return Convert.ToDouble(new String(price.Where(c => Char.IsDigit(c) ||  c == '.').ToArray()));
     }
 	 
     public string GetCurrancy(string price)
