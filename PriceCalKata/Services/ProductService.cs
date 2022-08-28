@@ -501,7 +501,7 @@ public class ProductService : IProductService
         var newPrice = GetPriceWithoutCurrency(product.PriceWithCurrency);
         var upcDiscount = CalculateDiscountAfterCheckUpc(product.Upc, product.UpcWithDiscount);
         var finalPrice = CalculatePriceAfterMultiplicativeDiscountFourDigits(product.PriceWithCurrency, 
-            product.Tax, product.Discount, upcDiscount, product.PackagingCost ,product.TransportCost);
+            product.Tax, product.Discount, upcDiscount, product.PackagingCost, product.TransportCost);
         var priceAfterUpcDiscount = newPrice - CalculateDiscountAmount(newPrice, upcDiscount);
         var discountAmount = CalculateDiscountAmount(priceAfterUpcDiscount, product.Discount) +
                              CalculateDiscountAmount(newPrice, upcDiscount);
