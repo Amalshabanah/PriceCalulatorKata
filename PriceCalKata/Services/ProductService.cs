@@ -447,7 +447,7 @@ public class ProductService : IProductService
         double discountAmount = CalculateDiscountAmountFourDigits((newPrice - upcDiscountAmount), discount);
         double expensesCost = CalculatePackagingAndTransportCostFourDigits(packaging, transport, newPrice);
         
-        return  Math.Round((priceAfterTax - (discountAmount + upcDiscountAmount) + expensesCost) , 4);
+        return  Math.Round((priceAfterTax - (discountAmount + upcDiscountAmount) + expensesCost), 4);
     }
     
     public double CalculatePackagingAndTransportCostFourDigits(string packaging, string transport , double price)
